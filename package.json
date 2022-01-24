@@ -1,0 +1,26 @@
+{
+  "name": "wordle-solver",
+  "version": "1.0.0",
+  "description": "Wordle Solver",
+  "main": "wordle-solver.js",
+  "scripts": {
+    "test": "jasmine",
+    "coverage": "nyc --exclude='**/*-spec.js'  --reporter=lcov --reporter=text-summary npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmruczek/wordle-solver.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmruczek/wordle-solver/issues"
+  },
+  "homepage": "https://github.com/dmruczek/wordle-solver",
+  "devDependencies": {
+    "jasmine": "^3.6.3",
+    "nyc": "^15.1.0"
+  },
+  "dependencies": {}
+}
