@@ -104,6 +104,7 @@
     .row {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
+      margin-bottom:5px;
       grid-gap: 5px;
     }
     .win {
@@ -255,7 +256,7 @@
 
     <div id="wordle-solver-app">
 
-        <button v-on:click="handleBtn">Give me the next word</button>
+        <button style="margin-bottom:30px;" v-on:click="handleBtn">Give me the next word</button>
 
         <div style="width: 350px; height: 420px;">
             <div v-for="word in wordList" class="row">
@@ -278,29 +279,32 @@
         el: "#wordle-solver-app",
         data() {
           return {
-            reqs: {
-                positioned: [undefined, 'r', 'i'],
-                outOfPosition: [{letter: 'c', position: 3}],
-                ruledOut: ['a', 'o', 's', 'e', 'd', 'l', 'y', 'b', 'k']
-            },
+            // reqs: {
+            //     positioned: [undefined, 'r', 'i'],
+            //     outOfPosition: [{letter: 'c', position: 3}],
+            //     ruledOut: ['a', 'o', 's', 'e', 'd', 'l', 'y', 'b', 'k']
+            // },
             wordToGuess: '',
             wordList: []
           }
         },
         methods: {
             handleBtn: function (event) {
-                var wordToGuess = doIteration(this.reqs);
-                this.wordToGuess = wordToGuess;
+                var reqs = createReqsFromWordObjectList(this.wordList);
+                if (reqs) {
+                    var wordToGuess = doIteration(reqs);
+                    this.wordToGuess = wordToGuess;
 
-                var wordObj = [];
+                    var wordObj = [];
 
 
-                var split = wordToGuess.split('');
-                for (let i = 0; i < split.length; i++) {
-                    wordObj.push({letter: split[i], status: 'tbd'});
+                    var split = wordToGuess.split('');
+                    for (let i = 0; i < split.length; i++) {
+                        wordObj.push({letter: split[i], status: 'tbd'});
+                    }
+
+                    this.wordList.push(wordObj);
                 }
-
-                this.wordList.push(wordObj);
             },
             cycleStatus: function (charObj) {
                 if (charObj.status === 'tbd') {

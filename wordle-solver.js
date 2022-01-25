@@ -45,6 +45,53 @@ function doIteration(reqs) {
     return findBestWordToGuess();
 }
 
+function createReqsFromWordObjectList(wordObjList) {
+
+    var reqs = {
+        positioned: [undefined, undefined, undefined, undefined, undefined],
+        outOfPosition: [],
+        ruledOut: []
+    };
+
+    for (let i = 0; i < wordObjList.length; i++) {
+        var wordObj = wordObjList[i];
+        for (let j = 0; j < wordObj.length; j++) {
+            var charObj = wordObj[j];
+            if (charObj.status === 'correct') {
+                reqs.positioned[j] = charObj.letter;
+            } else if (charObj.status === 'present') {
+                reqs.outOfPosition.push({
+                    letter: charObj.letter,
+                    position: j
+                });
+            } else if (charObj.status === 'absent') {
+                // need a better solution for duplicate characters...
+                var shouldAddAsAbsent = true;
+                if (!reqs.positioned.includes(charObj.letter)) {
+                    for (let x = 0; x < reqs.outOfPosition.length; x++) {
+                        if (reqs.outOfPosition[x].letter === charObj.letter) {
+                            shouldAddAsAbsent = false;
+                        }
+                    }
+                } else {
+                    shouldAddAsAbsent = false;
+                }
+
+                if (shouldAddAsAbsent) {
+                    reqs.ruledOut.push(charObj.letter);
+                }
+
+            } else {
+                alert('Click the letters!');
+                return undefined;
+            }
+        }
+    }
+
+    return reqs;
+
+}
+
 function findBestWordToGuess() {
 
     let letterStats = {};
