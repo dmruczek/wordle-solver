@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="theme-color" content="#6aaa64" />
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <style>
         /* Global Styles & Colors */
         :root {
@@ -101,7 +102,7 @@
       animation-name: Shake;
       animation-duration: 600ms;
     }
-    .row {
+    .wordle-row {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       margin-bottom:5px;
@@ -254,12 +255,12 @@
 
   <body>
 
-    <div id="wordle-solver-app">
+    <div class="container" id="wordle-solver-app">
 
-        <button style="margin-bottom:30px;" v-on:click="handleBtn">Give me the next word</button>
+        <button class="btn" style="margin-bottom:30px; margin-top:20px;" v-on:click="handleBtn">Give me the next word</button>
 
         <div style="width: 350px; height: 420px;">
-            <div v-for="word in wordList" class="row">
+            <div v-for="word in wordList" class="wordle-row">
                 <div v-for="character in word" v-bind:data-state="character.status" class="tile" v-on:click="cycleStatus(character)" >{{character.letter}}</div>
             </div>
 
